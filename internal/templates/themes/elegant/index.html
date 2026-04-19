@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{.MetaTitle}} - Undangan Pernikahan</title>
+    <meta name="description" content="{{.MetaDescription}}" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{.MetaTitle}}" />
+    <meta property="og:description" content="{{.MetaDescription}}" />
+    {{if .OGImage}}
+    <meta property="og:image" content="{{.OGImage}}" />
+    {{end}}
+    <meta property="og:type" content="website" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="{{.ThemeCSS}}" />
+
+    <!-- Theme Inline CSS (From DB) -->
+    {{if .ThemeInlineCSS}}
+    <style>{{.ThemeInlineCSS}}</style>
+    {{end}}
+
+    <!-- Custom CSS (From Invitation) -->
+    {{if .CustomCSS}}
+    <style>{{.CustomCSS}}</style>
+    {{end}}
+
+    <!-- htmx -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  </head>
+  <body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- Audio Background -->
+    {{if .MusicURL}}
+    <audio id="background-music" loop>
+      <source src="{{.MusicURL}}" type="audio/mpeg" />
+    </audio>
+    {{end}}
+
+    <!-- Music Control -->
+    <button id="music-control" class="music-control" aria-label="Toggle music">
+      <svg class="play-icon" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+      <svg class="pause-icon" style="display: none" viewBox="0 0 24 24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+      </svg>
+    </button>
+
+    <!-- Main Content -->
+    <main id="main-content">
+      <!-- Hero Section -->
+      <section class="hero" style="background-image: url('{{.CouplePhoto}}');">
+        <div class="hero-content fade-in-up">
+          <p class="hero-subtitle">The Wedding of</p>
+          <h1 class="hero-title">{{.GroomNickname}} & {{.BrideNickname}}</h1>
+          <p class="hero-date">{{.WeddingDate}}</p>
+
+          {{if .CountdownEnabled}}
+          <div id="countdown" class="countdown" data-date="{{.WeddingDateISO}}">
+            <div class="countdown-item">
+              <span id="countdown-days" class="countdown-number">0</span>
+              <span class="countdown-label">Hari</span>
+            </div>
+            <div class="countdown-item">
+              <span id="countdown-hours" class="countdown-number">0</span>
+              <span class="countdown-label">Jam</span>
+            </div>
+            <div class="countdown-item">
+              <span id="countdown-minutes" class="countdown-number">0</span>
+              <span class="countdown-label">Menit</span>
+            </div>
+            <div class="countdown-item">
+              <span id="countdown-seconds" class="countdown-number">0</span>
+              <span class="countdown-label">Detik</span>
+            </div>
+          </div>
+          {{end}}
+        </div>
+      </section>
+
+      <!-- Couple Section -->
+      <section class="section couple-section reveal">
+        <div class="container">
+          <div class="section-title">
+            <h2>Mempelai</h2>
+            <p>Dengan memohon rahmat dan ridho Allah SWT</p>
+          </div>
+
+          <div class="couple-grid">
+            <!-- Groom -->
+            <div class="couple-info">
+              {{if .GroomPhoto}}
+              <img
+                src="{{.GroomPhoto}}"
+                alt="{{.GroomName}}"
+                class="couple-photo"
+              />
+              {{end}}
+              <h3 class="couple-name">{{.GroomName}}</h3>
+              <p class="couple-parents">
+                Putra dari<br />
+                Bapak {{.GroomFather}} & Ibu {{.GroomMother}}
+              </p>
+            </div>
+
+            <div class="couple-divider">&</div>
+
+            <!-- Bride -->
+            <div class="couple-info">
+              {{if .BridePhoto}}
+              <img
+                src="{{.BridePhoto}}"
+                alt="{{.BrideName}}"
+                class="couple-photo"
+              />
+              {{end}}
+              <h3 class="couple-name">{{.BrideName}}</h3>
+              <p class="couple-parents">
+                Putri dari<br />
+                Bapak {{.BrideFather}} & Ibu {{.BrideMother}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Events Section -->
+      <section class="section event-section reveal">
+        <div class="container">
+          <div class="section-title">
+            <h2>Waktu & Tempat</h2>
+            <p>Dengan hormat kami mengundang Bapak/Ibu/Saudara/i</p>
+          </div>
+
+          <div class="event-grid">
+            <!-- Akad -->
+            {{if .AkadDate}}
+            <div class="event-card">
+              <div class="event-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 class="event-name">Akad Nikah</h3>
+              <p class="event-datetime">
+                {{.AkadDateFormatted}}<br />
+                Pukul {{.AkadTime}} WIB
+              </p>
+              <p class="event-location">
+                {{.AkadLocation}}<br />
+                <small>{{.AkadAddress}}</small>
+              </p>
+              {{if .AkadMapsURL}}
+              <a href="{{.AkadMapsURL}}" target="_blank" class="event-maps-btn">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                  />
+                </svg>
+                Lihat Lokasi
+              </a>
+              {{end}}
+            </div>
+            {{end}}
+
+            <!-- Reception -->
+            {{if .ReceptionDate}}
+            <div class="event-card">
+              <div class="event-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18z"
+                  />
+                </svg>
+              </div>
+              <h3 class="event-name">Resepsi</h3>
+              <p class="event-datetime">
+                {{.ReceptionDateFormatted}}<br />
+                Pukul {{.ReceptionTime}} WIB
+              </p>
+              <p class="event-location">
+                {{.ReceptionLocation}}<br />
+                <small>{{.ReceptionAddress}}</small>
+              </p>
+              {{if .ReceptionMapsURL}}
+              <a
+                href="{{.ReceptionMapsURL}}"
+                target="_blank"
+                class="event-maps-btn"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                  />
+                </svg>
+                Lihat Lokasi
+              </a>
+              {{end}}
+            </div>
+            {{end}}
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery Section (htmx lazy load) -->
+      {{if .GalleryEnabled}}
+      <section class="section gallery-section reveal">
+        <div class="container">
+          <div class="section-title">
+            <h2>Galeri</h2>
+            <p>Momen-momen indah kami</p>
+          </div>
+
+          <div
+            id="gallery-container"
+            hx-get="/{{.Subdomain}}/gallery"
+            hx-trigger="revealed"
+            hx-swap="innerHTML"
+          >
+            <p class="text-center">Memuat galeri...</p>
+          </div>
+        </div>
+      </section>
+      {{end}}
+
+      <!-- RSVP Section -->
+      {{if .RSVPEnabled}}
+      <section class="section rsvp-section reveal">
+        <div class="container">
+          <div class="section-title">
+            <h2>Konfirmasi Kehadiran</h2>
+            <p>Mohon konfirmasi kehadiran Anda</p>
+          </div>
+
+          <form
+            class="rsvp-form"
+            hx-post="/{{.Subdomain}}/rsvp"
+            hx-target="#rsvp-result"
+            hx-swap="innerHTML"
+          >
+            <div id="rsvp-result"></div>
+
+            <div class="form-group">
+              <label for="guest_name">Nama Lengkap</label>
+              <input
+                type="text"
+                id="guest_name"
+                name="guest_name"
+                placeholder="Masukkan nama lengkap"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Nomor WhatsApp</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="08xxxxxxxxxx"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="attendance">Konfirmasi Kehadiran</label>
+              <select id="attendance" name="attendance" required>
+                <option value="">-- Pilih --</option>
+                <option value="hadir">Hadir</option>
+                <option value="tidak_hadir">Tidak Hadir</option>
+                <option value="ragu">Masih Ragu</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="guest_count">Jumlah Tamu</label>
+              <select id="guest_count" name="guest_count">
+                <option value="1">1 Orang</option>
+                <option value="2">2 Orang</option>
+                <option value="3">3 Orang</option>
+                <option value="4">4 Orang</option>
+                <option value="5">5 Orang</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Ucapan & Doa</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Tulis ucapan dan doa untuk kedua mempelai"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">Kirim Konfirmasi</button>
+          </form>
+        </div>
+      </section>
+      {{end}}
+
+      <!-- Guest Messages Section -->
+      {{if .GuestBookEnabled}}
+      <section class="section messages-section reveal">
+        <div class="container">
+          <div class="section-title">
+            <h2>Ucapan & Doa</h2>
+            <p>Terima kasih atas ucapan dan doa Anda</p>
+          </div>
+
+          <div
+            id="messages-container"
+            hx-get="/{{.Subdomain}}/messages"
+            hx-trigger="load"
+            hx-swap="innerHTML"
+          >
+            <p class="text-center">Memuat ucapan...</p>
+          </div>
+        </div>
+      </section>
+      {{end}}
+
+      <!-- Gift Section -->
+      {{if .GiftEnabled}}
+      <section class="section gift-section reveal">
+        <div class="container">
+          <div class="section-title">
+            <h2>Amplop Digital</h2>
+            <p>Doa restu Anda adalah hadiah terindah bagi kami</p>
+          </div>
+
+          <div
+            id="gift-container"
+            hx-get="/{{.Subdomain}}/gift"
+            hx-trigger="load"
+            hx-swap="innerHTML"
+          >
+            <p class="text-center">Memuat...</p>
+          </div>
+        </div>
+      </section>
+      {{end}}
+
+      <!-- Footer -->
+      <footer class="footer">
+        <p class="footer-title">{{.GroomNickname}} & {{.BrideNickname}}</p>
+        <p>Terima kasih atas doa dan restu Anda</p>
+      </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>

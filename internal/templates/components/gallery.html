@@ -1,0 +1,12 @@
+<!-- Gallery Grid Fragment -->
+<div class="gallery-grid">
+    {{range .Gallery}}
+    <div class="gallery-item">
+        <img src="{{.ImageURL}}" alt="{{.Caption}}" loading="lazy">
+    </div>
+    {{end}}
+    
+    {{if eq (len .Gallery) 0}}
+    <p style="text-align: center; grid-column: 1/-1; color: #6b7280;">Belum ada foto di galeri</p>
+    {{end}}
+</div>

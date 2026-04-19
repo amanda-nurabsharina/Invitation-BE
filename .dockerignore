@@ -1,0 +1,50 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+invitation-api
+
+# Test files
+*.test
+*.out
+
+# Temporary files
+tmp/
+temp/
+
+# Log files
+*.log
+
+# Docker files (not needed in image)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Documentation
+README.md
+docs/
+*.md
+
+# Development files
+.air.toml
+
+# OS files
+.DS_Store
+Thumbs.db

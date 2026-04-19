@@ -1,0 +1,27 @@
+<!-- Guest Messages Fragment -->
+<div class="message-list">
+    {{range .Messages}}
+    <div class="message-card">
+        <p class="message-guest">{{.GuestName}}</p>
+        <p class="message-text">"{{.Message}}"</p>
+    </div>
+    {{end}}
+    
+    {{if eq (len .Messages) 0}}
+    <div style="text-align: center; padding: 40px; color: #6b7280;">
+        <p>Belum ada ucapan. Jadilah yang pertama!</p>
+    </div>
+    {{end}}
+</div>
+
+<!-- Load more button if needed -->
+{{if .HasMore}}
+<div style="text-align: center; margin-top: 30px;">
+    <button hx-get="/{{.Subdomain}}/messages?page={{.NextPage}}"
+            hx-target="#messages-container"
+            hx-swap="innerHTML"
+            style="padding: 12px 30px; background: #9b7b5c; color: white; border: none; border-radius: 30px; cursor: pointer;">
+        Lihat Lebih Banyak
+    </button>
+</div>
+{{end}}

@@ -1,0 +1,202 @@
+/* Luxury Gold Theme - Premium Styles */
+
+/* Base */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes kenburns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+/* Glass Effect */
+.glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Timeline */
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #C5A880, #d2d0cc);
+    transform: translateX(-50%);
+}
+
+/* Bank Card Gradients */
+.bank-bca { background: linear-gradient(135deg, #0066AE 0%, #004D8C 100%); }
+.bank-bri { background: linear-gradient(135deg, #00529C 0%, #003D73 100%); }
+.bank-mandiri { background: linear-gradient(135deg, #003D79 0%, #002855 100%); }
+.bank-bni { background: linear-gradient(135deg, #F06A29 0%, #D85A1B 100%); }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C5A880;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a88f6d;
+}
+
+/* Typography */
+.font-cursive {
+    font-family: 'Great Vibes', cursive;
+}
+
+.font-display {
+    font-family: 'Italiana', serif;
+}
+
+/* Hover Effects */
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* Gold Color */
+.text-gold {
+    color: #C5A880;
+}
+
+.bg-gold {
+    background-color: #C5A880;
+}
+
+.border-gold {
+    border-color: #C5A880;
+}
+
+/* Cream Color */
+.bg-cream {
+    background-color: #FAF8F5;
+}
+
+/* Section Spacing */
+section {
+    overflow: hidden;
+}
+
+/* Button Styles */
+button, .btn {
+    transition: all 0.3s ease;
+}
+
+button:hover, .btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Image Gallery */
+.gallery-item {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* RSVP Form Styles */
+.rsvp-form input,
+.rsvp-form textarea,
+.rsvp-form select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d2d0cc;
+    border-radius: 0.5rem;
+    background: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rsvp-form input:focus,
+.rsvp-form textarea:focus,
+.rsvp-form select:focus {
+    outline: none;
+    border-color: #C5A880;
+    box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.2);
+}
+
+.rsvp-form button[type="submit"] {
+    background: #C5A880;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.rsvp-form button[type="submit"]:hover {
+    background: #a88f6d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(197, 168, 128, 0.4);
+}
+
+/* Message Card */
+.message-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #C5A880;
+    margin-bottom: 1rem;
+}
+
+.message-card .name {
+    font-weight: 600;
+    color: #C5A880;
+    margin-bottom: 0.5rem;
+}
+
+.message-card .text {
+    color: #4a4a4a;
+    line-height: 1.6;
+}
+
+.message-card .time {
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: 0.5rem;
+}

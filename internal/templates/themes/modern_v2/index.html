@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.MetaTitle}}</title>
+    
+    <!-- Fonts Different from Standard Template -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Theme Specific CSS -->
+    <link rel="stylesheet" href="/assets/css/themes/modern_v2.css">
+    
+    <!-- Theme Inline CSS -->
+    {{if .ThemeInlineCSS}}
+    <style>{{.ThemeInlineCSS}}</style>
+    {{end}}
+
+    <!-- Custom CSS -->
+    {{if .CustomCSS}}
+    <style>{{.CustomCSS}}</style>
+    {{end}}
+
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Poppins', sans-serif; display: flex;">
+
+    <!-- Sidebar Layout (Unique to Modern V2) -->
+    <aside class="sidebar">
+        <div class="sidebar-content">
+            <h1 class="sidebar-title">{{.GroomNickname}}<br>&<br>{{.BrideNickname}}</h1>
+            <p class="sidebar-date">{{.WeddingDate}}</p>
+            
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#couple">Mempelai</a></li>
+                <li><a href="#events">Acara</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main Scrollable Content -->
+    <main class="main-content">
+        
+        <section id="home" class="section">
+            <h2 class="section-title">The Wedding</h2>
+            <p style="font-size: 1.2rem;">Kami mengundang Anda untuk merayakan pernikahan kami.</p>
+            
+            <!-- Countdown Different Style -->
+            {{if .CountdownEnabled}}
+            <div id="countdown" class="card-modern" data-date="{{.WeddingDateISO}}">
+                <div style="display: flex; justify-content: space-around; font-size: 2rem; font-family: 'Playfair Display';">
+                    <div style="text-align: center;"><span id="countdown-days">0</span><br><small style="font-size: 0.8rem; font-family: Poppins">HARI</small></div>
+                    <div style="text-align: center;"><span id="countdown-hours">0</span><br><small style="font-size: 0.8rem; font-family: Poppins">JAM</small></div>
+                    <div style="text-align: center;"><span id="countdown-minutes">0</span><br><small style="font-size: 0.8rem; font-family: Poppins">MENIT</small></div>
+                </div>
+            </div>
+            {{end}}
+        </section>
+
+        <section id="couple" class="section" style="background: white;">
+            <h2 class="section-title">Mempelai</h2>
+            
+            <div class="couple-grid">
+                <div class="card-modern">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 10px; color: var(--primary);">{{.GroomName}}</h3>
+                    <p>Putra dari Bapak {{.GroomFather}} & Ibu {{.GroomMother}}</p>
+                </div>
+                
+                <div class="card-modern">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 10px; color: var(--primary);">{{.BrideName}}</h3>
+                    <p>Putri dari Bapak {{.BrideFather}} & Ibu {{.BrideMother}}</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="events" class="section">
+            <h2 class="section-title">Waktu & Tempat</h2>
+            
+            {{if .AkadDate}}
+            <div class="event-card">
+                <h3 style="color: var(--primary); margin-bottom: 10px;">Akad Nikah</h3>
+                <p><strong>Date:</strong> {{.AkadDateFormatted}}</p>
+                <p><strong>Time:</strong> {{.AkadTime}}</p>
+                <p><strong>Location:</strong> {{.AkadLocation}}</p>
+            </div>
+            {{end}}
+
+            {{if .ReceptionDate}}
+            <div class="event-card" style="margin-top: 20px;">
+                <h3 style="color: var(--primary); margin-bottom: 10px;">Resepsi Pernikahan</h3>
+                <p><strong>Date:</strong> {{.ReceptionDateFormatted}}</p>
+                <p><strong>Time:</strong> {{.ReceptionTime}}</p>
+                <p><strong>Location:</strong> {{.ReceptionLocation}}</p>
+            </div>
+            {{end}}
+        </section>
+
+        {{if .RSVPEnabled}}
+        <section id="rsvp" class="section" style="background: white;">
+            <h2 class="section-title">Konfirmasi Kahadiran</h2>
+            
+            <form class="rsvp-modern" 
+                  hx-post="/{{.Subdomain}}/rsvp" 
+                  hx-target="#rsvp-result" 
+                  hx-swap="innerHTML"
+                  style="max-width: 500px; margin: 0 auto;">
+                
+                <div id="rsvp-result" style="margin-bottom: 15px;"></div>
+                
+                <input type="text" name="guest_name" placeholder="Nama Lengkap" required style="display: block; width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; background: #f9f9f9;">
+                
+                <input type="tel" name="phone" placeholder="Nomor WhatsApp" style="display: block; width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; background: #f9f9f9;">
+                
+                <select name="attendance" required style="display: block; width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; background: #f9f9f9;">
+                    <option value="">Konfirmasi Kehadiran</option>
+                    <option value="hadir">Hadir</option>
+                    <option value="tidak_hadir">Tidak Hadir</option>
+                    <option value="ragu">Masih Ragu</option>
+                </select>
+                
+                <textarea name="message" rows="4" placeholder="Ucapan & Doa" style="display: block; width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; background: #f9f9f9;"></textarea>
+                
+                <button type="submit" style="background: #2c3e50; color: white; padding: 12px 24px; border: none; cursor: pointer; display: block; width: 100%; font-size: 1rem; border-radius: 4px;">Kirim Konfirmasi</button>
+            </form>
+        </section>
+        {{end}}
+
+    </main>
+    
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

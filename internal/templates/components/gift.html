@@ -1,0 +1,23 @@
+<!-- Gift Accounts Fragment -->
+<div class="gift-grid">
+    {{range .GiftAccounts}}
+    <div class="gift-card">
+        <p class="gift-bank">{{.BankName}}</p>
+        <p class="gift-number" data-copy="{{.AccountNumber}}" title="Klik untuk menyalin">
+            {{.AccountNumber}}
+        </p>
+        <p class="gift-name">a.n. {{.AccountName}}</p>
+        {{if .QRImage}}
+        <img src="{{.QRImage}}" alt="QR Code" style="max-width: 150px; margin-top: 15px;">
+        {{end}}
+    </div>
+    {{end}}
+    
+    {{if eq (len .GiftAccounts) 0}}
+    <p style="text-align: center; grid-column: 1/-1; color: #6b7280;">Tidak ada rekening yang ditampilkan</p>
+    {{end}}
+</div>
+
+<p style="text-align: center; margin-top: 20px; color: #6b7280; font-size: 0.9rem;">
+    Klik nomor rekening untuk menyalin
+</p>
