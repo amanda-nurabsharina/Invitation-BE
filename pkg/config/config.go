@@ -54,7 +54,10 @@ type AppConfig struct {
 
 // Load loads configuration from environment variables
 func Load() (*Config, error) {
-	// Load .env file if it exists
+	// Load .env.local first if it exists for local development overrides
+	_ = godotenv.Load(".env.local")
+
+	// Load .env file next for fallback / production configuration
 	if err := godotenv.Load(); err != nil {
 		// It's okay if .env file doesn't exist in production
 		fmt.Println("No .env file found, using environment variables")

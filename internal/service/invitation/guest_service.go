@@ -155,10 +155,16 @@ func (s *service) ExportGuests(invitationID uuid.UUID) (*bytes.Buffer, string, e
 	f.SetColWidth("Sheet1", "B", "B", 20)
 	f.SetColWidth("Sheet1", "C", "C", 60)
 
-	// Base URL construction
-	// Access localhost or production domain logic could be improved
-	// Assuming default app structure here
-	baseURL := "http://localhost:3000/" + tenant.Subdomain
+	// Base URL construction using dynamic App BaseURL
+	appBaseURL := "http://localhost:8080"
+	if s.cfg != nil && s.cfg.App.BaseURL != "" {
+		appBaseURL = s.cfg.App.BaseURL
+	}
+	// Strip trailing slash
+	if len(appBaseURL) > 0 && appBaseURL[len(appBaseURL)-1] == '/' {
+		appBaseURL = appBaseURL[:len(appBaseURL)-1]
+	}
+	baseURL := fmt.Sprintf("%s/%s", appBaseURL, tenant.Subdomain)
 
 	for i, guest := range guests {
 		row := i + 2

@@ -10,6 +10,7 @@ import (
 	invitationDomain "invitation-api/internal/domain/invitation"
 	invitationRepo "invitation-api/internal/repository/invitation"
 	tenantRepo "invitation-api/internal/repository/tenant"
+	"invitation-api/pkg/config"
 
 	"github.com/google/uuid"
 )
@@ -130,13 +131,15 @@ type GalleryOrderItem struct {
 type service struct {
 	invitationRepo invitationRepo.Repository
 	tenantRepo     tenantRepo.Repository
+	cfg            *config.Config
 }
 
 // NewService creates a new invitation service
-func NewService(invitationRepo invitationRepo.Repository, tenantRepo tenantRepo.Repository) Service {
+func NewService(invitationRepo invitationRepo.Repository, tenantRepo tenantRepo.Repository, cfg *config.Config) Service {
 	return &service{
 		invitationRepo: invitationRepo,
 		tenantRepo:     tenantRepo,
+		cfg:            cfg,
 	}
 }
 

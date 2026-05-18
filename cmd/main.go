@@ -125,7 +125,7 @@ func setupRoutes(app *fiber.App, cfg *config.Config) {
 	// Initialize handlers
 	authH := authHandler.NewHandler(cfg)
 	tenantH := apiHandler.NewTenantHandler(cfg)
-	invitationH := apiHandler.NewInvitationHandler()
+	invitationH := apiHandler.NewInvitationHandler(cfg)
 	themeH := apiHandler.NewThemeHandler()
 	themeCategoryH := apiHandler.NewCategoryHandler()
 	uploadH := apiHandler.NewUploadHandler("./uploads", cfg.App.BaseURL)

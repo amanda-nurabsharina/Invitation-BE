@@ -29,7 +29,7 @@ func NewTenantHandler(cfg *config.Config) *TenantHandler {
 	tenantSvc := tenantService.NewService(tenantRepository, cfg)
 
 	invitationRepository := invitationRepo.NewRepository()
-	invitationSvc := invitationService.NewService(invitationRepository, tenantRepository)
+	invitationSvc := invitationService.NewService(invitationRepository, tenantRepository, cfg)
 
 	return &TenantHandler{
 		tenantService:     tenantSvc,

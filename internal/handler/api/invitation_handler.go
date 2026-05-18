@@ -7,6 +7,7 @@ import (
 	invitationRepo "invitation-api/internal/repository/invitation"
 	tenantRepo "invitation-api/internal/repository/tenant"
 	invitationService "invitation-api/internal/service/invitation"
+	"invitation-api/pkg/config"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
@@ -18,10 +19,10 @@ type InvitationHandler struct {
 }
 
 // NewInvitationHandler creates a new invitation handler
-func NewInvitationHandler() *InvitationHandler {
+func NewInvitationHandler(cfg *config.Config) *InvitationHandler {
 	invitationRepository := invitationRepo.NewRepository()
 	tenantRepository := tenantRepo.NewRepository()
-	invitationSvc := invitationService.NewService(invitationRepository, tenantRepository)
+	invitationSvc := invitationService.NewService(invitationRepository, tenantRepository, cfg)
 
 	return &InvitationHandler{
 		invitationService: invitationSvc,
