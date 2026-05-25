@@ -136,18 +136,29 @@ func CreateInitialThemes() {
 
 	for _, t := range themes {
 		// Check if theme already exists
-		existing, _ := repo.GetBySlug(t.Slug)
+		existing, _ := repo.GetBySlugUnscoped(t.Slug)
 		if existing != nil {
-			// Fix TemplatePath if different
+			needsUpdate := false
 			if existing.TemplatePath != t.TemplatePath {
 				existing.TemplatePath = t.TemplatePath
+				needsUpdate = true
+			}
+			if !existing.IsActive {
+				existing.IsActive = true
+				needsUpdate = true
+			}
+			if existing.DeletedAt.Valid {
+				existing.DeletedAt.Valid = false
+				needsUpdate = true
+			}
+			if needsUpdate {
 				if err := repo.Update(existing); err != nil {
-					log.Printf("Failed to update theme %s template path: %v", t.Slug, err)
+					log.Printf("Failed to update existing theme %s: %v", t.Slug, err)
 				} else {
-					log.Printf("✅ Theme %s template path updated to: %s", t.Slug, t.TemplatePath)
+					log.Printf("✅ Theme %s restored/updated (TemplatePath: %s, IsActive: true)", t.Slug, t.TemplatePath)
 				}
 			}
-			log.Printf("Theme %s already exists, skipping", t.Slug)
+			log.Printf("Theme %s already exists, skipping creation", t.Slug)
 			continue
 		}
 

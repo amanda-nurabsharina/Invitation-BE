@@ -13,6 +13,7 @@ type Repository interface {
 	Create(theme *themeDomain.Theme) error
 	GetByID(id uuid.UUID) (*themeDomain.Theme, error)
 	GetBySlug(slug string) (*themeDomain.Theme, error)
+	GetBySlugUnscoped(slug string) (*themeDomain.Theme, error)
 	Update(theme *themeDomain.Theme) error
 	Delete(id uuid.UUID) error
 	List(limit, offset int, activeOnly bool) ([]*themeDomain.Theme, error)
@@ -51,6 +52,16 @@ func (r *repository) GetByID(id uuid.UUID) (*themeDomain.Theme, error) {
 func (r *repository) GetBySlug(slug string) (*themeDomain.Theme, error) {
 	var theme themeDomain.Theme
 	err := r.db.Where("slug = ?", slug).First(&theme).Error
+	if err != nil {
+		return nil, err
+	}
+	return &theme, nil
+}
+
+// GetBySlugUnscoped retrieves a theme by slug including soft-deleted ones
+func (r *repository) GetBySlugUnscoped(slug string) (*themeDomain.Theme, error) {
+	var theme themeDomain.Theme
+	err := r.db.Unscoped().Where("slug = ?", slug).First(&theme).Error
 	if err != nil {
 		return nil, err
 	}

@@ -178,6 +178,21 @@ func (s *service) List(limit, offset int, activeOnly bool) ([]*themeDomain.Theme
 		return nil, 0, err
 	}
 
+	for _, theme := range themes {
+		if (theme.CustomHTML == nil || *theme.CustomHTML == "") && theme.TemplatePath != "" {
+			htmlContent, err := os.ReadFile(filepath.Join("internal", "templates", "themes", theme.TemplatePath, "index.html"))
+			if err == nil {
+				content := string(htmlContent)
+				theme.CustomHTML = &content
+			}
+			cssContent, err := os.ReadFile(filepath.Join("internal", "templates", "themes", theme.TemplatePath, "style.css"))
+			if err == nil {
+				content := string(cssContent)
+				theme.CustomCSS = &content
+			}
+		}
+	}
+
 	count, err := s.themeRepo.Count(activeOnly)
 	if err != nil {
 		return nil, 0, err
@@ -188,7 +203,27 @@ func (s *service) List(limit, offset int, activeOnly bool) ([]*themeDomain.Theme
 
 // ListByCategory retrieves themes by category
 func (s *service) ListByCategory(category string) ([]*themeDomain.Theme, error) {
-	return s.themeRepo.ListByCategory(category)
+	themes, err := s.themeRepo.ListByCategory(category)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, theme := range themes {
+		if (theme.CustomHTML == nil || *theme.CustomHTML == "") && theme.TemplatePath != "" {
+			htmlContent, err := os.ReadFile(filepath.Join("internal", "templates", "themes", theme.TemplatePath, "index.html"))
+			if err == nil {
+				content := string(htmlContent)
+				theme.CustomHTML = &content
+			}
+			cssContent, err := os.ReadFile(filepath.Join("internal", "templates", "themes", theme.TemplatePath, "style.css"))
+			if err == nil {
+				content := string(cssContent)
+				theme.CustomCSS = &content
+			}
+		}
+	}
+
+	return themes, nil
 }
 
 // Activate activates a theme

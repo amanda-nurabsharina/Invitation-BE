@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of {{.BrideName}} & {{.GroomName}}</title>
+    
+    <!-- Render Theme Inline CSS (Global for theme) -->
+    <style>
+        {{.ThemeInlineCSS}}
+    </style>
+
+    <!-- Render Custom CSS for this Invitation -->
+    <style>
+        {{.CustomCSS}}
+    </style>
+</head>
+<body>
+
+<!-- Setup Variables (Hidden from CMS Preview) -->
+<div style="display: none;">
+{{$bg := ""}}
+
+<!-- Love Story Variables -->
+{{$s1y := ""}}{{$s1t := ""}}{{$s1d := ""}}
+{{$s2y := ""}}{{$s2t := ""}}{{$s2d := ""}}
+{{$s3y := ""}}{{$s3t := ""}}{{$s3d := ""}}
+{{$s4y := ""}}{{$s4t := ""}}{{$s4d := ""}}
+{{$s5y := ""}}{{$s5t := ""}}{{$s5d := ""}}
+
+
+{{if .ContentData}}
+    <!-- Safe Assignments -->
+    {{$bg = index .ContentData "HeroImage"}}
+    {{if not $bg}}{{$bg = index .ContentData "heroimage"}}{{end}}
+
+    <!-- Love Story Data -->
+    {{$s1y = index .ContentData "Story1Year"}}
+    {{$s1t = index .ContentData "Story1Title"}}
+    {{$s1d = index .ContentData "Story1Desc"}}
+
+    {{$s2y = index .ContentData "Story2Year"}}
+    {{$s2t = index .ContentData "Story2Title"}}
+    {{$s2d = index .ContentData "Story2Desc"}}
+
+    {{$s3y = index .ContentData "Story3Year"}}
+    {{$s3t = index .ContentData "Story3Title"}}
+    {{$s3d = index .ContentData "Story3Desc"}}
+
+    {{$s4y = index .ContentData "Story4Year"}}
+    {{$s4t = index .ContentData "Story4Title"}}
+    {{$s4d = index .ContentData "Story4Desc"}}
+
+    {{$s5y = index .ContentData "Story5Year"}}
+    {{$s5t = index .ContentData "Story5Title"}}
+    {{$s5d = index .ContentData "Story5Desc"}}
+{{end}}
+</div>
+
+<style>
+    /* Global Reset to prevent whitespace framing */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow-x: hidden !important;
+        background-color: #fcf8f2 !important; /* MATCH HERO BG TO HIDE GAP */
+    }
+</style>
+
+<section class="hero-wrapper" style="width: 100%; min-width: 100%; padding: 0 !important; margin: 0 !important; border-radius: 0;">
+  <!-- Full width hero, override max-width from CSS -->
+  <section class="hero" style="background-color: #fcf8f2; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; min-height: 100vh; width: 100% !important; max-width: none !important; border-radius: 0 !important; margin: 0 !important; box-shadow: none !important;">
+    
+    <!-- VECTOR FLOWER BACKGROUND -->
+    <!-- Centered Parent DIV -->
+    <div class="flower-bg" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; z-index: 0; pointer-events: none; opacity: 0.25; display: flex; align-items: center; justify-content: center;">
+         <!-- SVG spins only. Updated color to Soft Yellow (#fceeb5) as requested -->
+         <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; animation: spin-only 60s linear infinite; color: #fceeb5; fill: currentColor;">
+            <g transform="translate(250,250)">
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(22.5)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(45)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(67.5)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(90)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(112.5)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(135)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(157.5)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(180)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(202.5)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(225)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(247.5)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(270)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(292.5)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(315)" />
+                <path d="M0,-200 C50,-150 50,-100 0,-50 C-50,-100 -50,-150 0,-200 Z" transform="rotate(337.5)" />
+                <circle r="30" fill="none" stroke="currentColor" stroke-width="2" />
+            </g>
+         </svg>
+    </div>
+    
+    <!-- Hero Content (z-index 1) -->
+    <div class="hero-content" style="position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: 100%;">
+        <h3 class="subheading" style="margin-bottom: 5px;">The Wedding Of</h3>
+
+        <!-- Arch Decoration -->
+        <svg width="150" height="30" viewBox="0 0 150 30" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 2rem;">
+            <!-- Curved Line -->
+            <path d="M10 25 Q 75 -5 140 25" stroke="#7c8a45" stroke-width="1.2" fill="none" />
+            <!-- Little stems/dots -->
+            <line x1="75" y1="10" x2="75" y2="4" stroke="#7c8a45" stroke-width="1.2"/>
+            <circle cx="75" cy="4" r="2" fill="#e3b15c"/>
+            
+            <line x1="45" y1="15" x2="42" y2="10" stroke="#7c8a45" stroke-width="1.2"/>
+            <circle cx="42" cy="10" r="2" fill="#e3b15c"/>
+
+            <line x1="105" y1="15" x2="108" y2="10" stroke="#7c8a45" stroke-width="1.2"/>
+            <circle cx="108" cy="10" r="2" fill="#e3b15c"/>
+        </svg>
+
+        <div class="name-box" style="margin-bottom: 2rem; text-align: center;">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; margin: 0;">{{.BrideName}}</h1>
+            <span style="display: block; font-family: 'Great Vibes', cursive; font-size: 2rem; color: #e3b15c; margin: 5px 0;">&</span>
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; margin: 0;">{{.GroomName}}</h1>
+        </div>
+
+        <!-- Separator Lines for "Together with their families" -->
+        <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 30px; width: 80%; max-width: 350px;">
+            <div style="flex:1; height:1px; background-color: #666; opacity: 0.5;"></div>
+            <p class="family-text" style="margin: 0; font-size: 0.9rem; color: #666; white-space: nowrap;">Together with their families</p>
+            <div style="flex:1; height:1px; background-color: #666; opacity: 0.5;"></div>
+        </div>
+
+        <div class="date" style="color: #e3b15c; font-weight: bold; margin-bottom: 20px;">{{.AkadDateFormatted}}</div>
+
+        <!-- Guest Name Section -->
+        {{if .GuestName}}
+        <div class="guest-box" style="margin-bottom: 30px; animation: fadeInUp 1s ease-out 0.8s backwards;">
+            <p style="font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #666; margin-bottom: 5px; font-style: italic;">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #1a1a1a; margin: 0; font-weight: 600;">{{.GuestName}}</h2>
+        </div>
+        {{end}}
+
+        <!-- Scroll to RSVP -->
+        <button class="btn-primary" onclick="document.querySelector('.rsvp').scrollIntoView({behavior: 'smooth'})">Save The Date</button>
+    </div>
+  </section>
+  <style>
+    /* Animation for rotation ONLY, no translation */
+    @keyframes spin-only {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+  </style>
+</section>
+
+<section class="section light" style="background-color: #ffffff; position: relative; padding-top: 50px; padding-bottom: 80px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; margin-bottom: 0; z-index: 2;">
+  
+  <!-- Chevron Down Icon at Top Center -->
+  <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 -2px 5px rgba(0,0,0,0.02);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e3b15c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+
+  <h2 class="center" style="margin-top: 20px; font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #1a1a1a;">Our Love Story</h2>
+
+  <div class="timeline">
+    {{if or $s1y $s1t}}
+    <div class="timeline-item left">
+      <div class="year" style="color: #e3b15c; font-size: 1.1rem; margin-bottom:5px;">{{if $s1y}}{{$s1y}}{{else}}202X{{end}}</div>
+      <h4 style="font-size: 1.6rem; color: #1a1a1a; margin-bottom: 5px;">{{if $s1t}}{{$s1t}}{{else}}First Encounter{{end}}</h4>
+      <p style="color: #b0b0b0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem;">{{if $s1d}}{{$s1d}}{{else}}First time we met{{end}}</p>
+    </div>
+    {{end}}
+    
+    {{if or $s2y $s2t}}
+    <div class="timeline-item right">
+      <div class="year" style="color: #e3b15c; font-size: 1.1rem; margin-bottom:5px;">{{if $s2y}}{{$s2y}}{{else}}202X{{end}}</div>
+      <h4 style="font-size: 1.6rem; color: #1a1a1a; margin-bottom: 5px;">{{if $s2t}}{{$s2t}}{{else}}The Beginning{{end}}</h4>
+      <p style="color: #b0b0b0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem;">{{if $s2d}}{{$s2d}}{{else}}Started our journey together{{end}}</p>
+    </div>
+    {{end}}
+
+    {{if or $s3y $s3t}}
+    <div class="timeline-item left">
+      <div class="year" style="color: #e3b15c; font-size: 1.1rem; margin-bottom:5px;">{{if $s3y}}{{$s3y}}{{else}}202X{{end}}</div>
+      <h4 style="font-size: 1.6rem; color: #1a1a1a; margin-bottom: 5px;">{{if $s3t}}{{$s3t}}{{else}}She Said Yes{{end}}</h4>
+      <p style="color: #b0b0b0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem;">{{if $s3d}}{{$s3d}}{{else}}The proposal{{end}}</p>
+    </div>
+    {{end}}
+
+    {{if or $s4y $s4t}}
+    <div class="timeline-item right">
+      <div class="year" style="color: #e3b15c; font-size: 1.1rem; margin-bottom:5px;">{{if $s4y}}{{$s4y}}{{else}}202X{{end}}</div>
+      <h4 style="font-size: 1.6rem; color: #1a1a1a; margin-bottom: 5px;">{{if $s4t}}{{$s4t}}{{else}}The Big Day{{end}}</h4>
+      <p style="color: #b0b0b0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem;">{{if $s4d}}{{$s4d}}{{else}}Our forever begins{{end}}</p>
+    </div>
+    {{end}}
+
+    {{if or $s5y $s5t}}
+    <div class="timeline-item left">
+      <div class="year" style="color: #e3b15c; font-size: 1.1rem; margin-bottom:5px;">{{if $s5y}}{{$s5y}}{{else}}202X{{end}}</div>
+      <h4 style="font-size: 1.6rem; color: #1a1a1a; margin-bottom: 5px;">{{if $s5t}}{{$s5t}}{{else}}New Chapter{{end}}</h4>
+      <p style="color: #b0b0b0; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem;">{{if $s5d}}{{$s5d}}{{else}}Building our future{{end}}</p>
+    </div>
+    {{end}}
+    
+    <!-- Fallback if no data -->
+    {{if and (not $s1y) (not $s2y)}}
+    <p class="center" style="width:100%; color:#999; font-style:italic;">(Silakan isi parameter Story1Year, Story1Title, Story1Desc di CMS)</p>
+    {{end}}
+  </div>
+</section>
+
+
+
+<!-- EVENT DETAILS SECTION WRAPPER -->
+<div class="event-wrapper" style="background-color: #f3efe8; margin-top: -50px; padding-top: 80px; padding-bottom: 60px; position: relative; z-index: 1;">
+  <section class="section" id="event-details" style="max-width: 600px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 30px;">
+    
+    <!-- AKAD NIKAH CARD -->
+    <div class="card" style="background: #ffffff; border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.03);">
+      
+      <h3 class="accent" style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #e3b15c; margin-bottom: 10px; font-weight: 500;">Akad Nikah</h3>
+      <p style="color: #6b7c3f; font-size: 0.9rem; margin-bottom: 30px; font-family: 'Playfair Display', serif; font-style: italic;">Sacred Union</p>
+      
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 30px;">
+        <div style="display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; color: #1a1a1a;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e3b15c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span style="font-size: 1.1rem;">{{if .AkadTime}}{{.AkadTime}}{{else}}08.00 ΓÇô 10.00 WIB{{end}}</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; color: #1a1a1a;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e3b15c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span style="font-size: 1.1rem;">{{if .AkadAddress}}{{.AkadAddress}}{{else}}Gedung XYZ, Jakarta{{end}}</span>
+        </div>
+      </div>
+
+      <p style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 35px; color: #1a1a1a;">{{.AkadDateFormatted}}</p>
+      
+      <a href="{{.AkadMapsURL}}" target="_blank" class="btn-outline" style="display:inline-block; text-decoration:none; padding: 12px 35px; background-color: transparent; color: #e3b15c; border: 1px solid #e3b15c; border-radius: 50px; font-size: 0.95rem; font-family: 'Playfair Display', serif; transition: all 0.3s;">Open Google Maps</a>
+    </div>
+
+    <!-- RESEPSI CARD -->
+    <div class="card" style="background: #ffffff; border-radius: 30px; padding: 50px 30px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.03);">
+
+      <h3 class="accent" style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #e3b15c; margin-bottom: 10px; font-weight: 500;">Resepsi</h3>
+      <p style="color: #6b7c3f; font-size: 0.9rem; margin-bottom: 30px; font-family: 'Playfair Display', serif; font-style: italic;">Celebration of Love</p>
+
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 30px;">
+        <div style="display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; color: #1a1a1a;">
+             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e3b15c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+             <span style="font-size: 1.1rem;">11.00 - 14.00 WIB</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; color: #1a1a1a;">
+             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e3b15c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+             <span style="font-size: 1.1rem;">{{if .ReceptionAddress}}{{.ReceptionAddress}}{{else}}Grand Ballroom Hotel XYZ{{end}}</span>
+        </div>
+      </div>
+      
+      <p style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 35px; color: #1a1a1a;">{{.ReceptionDateFormatted}}</p>
+
+      <a href="{{.ReceptionMapsURL}}" target="_blank" class="btn-outline" style="display:inline-block; text-decoration:none; padding: 12px 35px; background-color: transparent; color: #e3b15c; border: 1px solid #e3b15c; border-radius: 50px; font-size: 0.95rem; font-family: 'Playfair Display', serif; transition: all 0.3s;">Open Google Maps</a>
+    </div>
+
+    <!-- No closing div here, extending the wrapper -->
+  </section>
+
+<!-- COUNTDOWN SECTION (Transparent on Beige) -->
+<section class="section center" style="background-color: transparent; padding-top: 0; padding-bottom: 60px;">
+  <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #1a1a1a; margin-bottom: 20px;">Counting Down to Our Special Day</h2>
+  <div class="countdown">
+    <div><span id="days" style="color: #e3b15c;">00</span><small style="color: #6b7c3f;">Days</small></div>
+    <div><span id="hours" style="color: #e3b15c;">00</span><small style="color: #6b7c3f;">Hours</small></div>
+    <div><span id="minutes" style="color: #e3b15c;">00</span><small style="color: #6b7c3f;">Mins</small></div>
+    <div><span id="seconds" style="color: #e3b15c;">00</span><small style="color: #6b7c3f;">Sec</small></div>
+  </div>
+</section>
+</div> <!-- Close Event Wrapper (Beige Background Ends Here) -->
+
+
+<!-- RSVP SECTION (White 'Sheet' with Rounded Top) -->
+<!-- Uses negative margin to pull it up slightly over the beige if needed, or just sits after. 
+     Based on image, it looks like a clean break to white with rounded top. -->
+<section class="section" id="rsvp-section" style="background-color: #ffffff; border-top-left-radius: 40px; border-top-right-radius: 40px; margin-top: -40px; padding-top: 60px; padding-bottom: 60px; position: relative; z-index: 2; box-shadow: 0 -10px 30px rgba(0,0,0,0.03);">
+  
+  <h2 class="center" style="font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 10px; color: #1a1a1a;">RSVP</h2>
+  <p class="center" style="color:#6b7c3f; font-family:'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 50px; margin-top:0;">Kindly Confirm Your Attendance</p>
+
+  <!-- HTMX Library -->
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+  <form class="rsvp" hx-post="/{{.Subdomain}}/rsvp" hx-swap="innerHTML" hx-target="#rsvp-section" style="max-width: 600px; margin: 0 auto; padding: 0 20px;">
+    
+    <div class="form-group" style="margin-bottom: 25px;">
+      <label class="rsvp-label" style="font-family: 'Playfair Display', serif; color: #1a1a1a; font-size: 1.1rem; margin-bottom: 8px; display: block;">Full Name</label>
+      <input type="text" name="guest_name" value="{{.GuestName}}" placeholder="Mr/Mrs.Name" class="rsvp-input" required 
+             style="width: 100%; border-radius: 8px; border: 1px solid #e6e0d0; padding: 15px; font-family: 'Playfair Display', serif; font-size: 1rem; background: #fcfbf9;">
+    </div>
+
+    <div class="form-group" style="margin-bottom: 25px;">
+      <label class="rsvp-label" style="font-family: 'Playfair Display', serif; color: #1a1a1a; font-size: 1.1rem; margin-bottom: 8px; display: block;">Attendance</label>
+      <div class="attendance-options" style="display: flex; gap: 15px;">
+        <label class="radio-option" style="flex: 1; cursor: pointer;">
+          <input type="radio" name="attendance" value="attending" checked style="display: none;">
+          <span class="btn-check" style="display: block; width: 100%; text-align: center; border-radius: 8px; padding: 12px; font-family: 'Playfair Display', serif; background-color: #8f9e5e; color: white; border: 1px solid #8f9e5e;">Will Attend</span>
+        </label>
+        <label class="radio-option" style="flex: 1; cursor: pointer;">
+          <input type="radio" name="attendance" value="not_attending" style="display: none;">
+          <span class="btn-check btn-outline-check" style="display: block; width: 100%; text-align: center; border-radius: 8px; padding: 12px; font-family: 'Playfair Display', serif; background-color: white; color: #999; border: 1px solid #e6e0d0;">Unable to Attend</span>
+        </label>
+      </div>
+      <!-- Add simplified script to toggle active styling for radio buttons visual -->
+      <script>
+        document.querySelectorAll('input[name="attendance"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Reset all
+                 document.querySelectorAll('.btn-check').forEach(span => {
+                    span.style.backgroundColor = 'white';
+                    span.style.color = '#999';
+                    span.style.borderColor = '#e6e0d0';
+                 });
+                 // Set active
+                 const activeSpan = this.nextElementSibling;
+                 activeSpan.style.backgroundColor = '#8f9e5e';
+                 activeSpan.style.color = 'white';
+                 activeSpan.style.borderColor = '#8f9e5e';
+            });
+        });
+      </script>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 25px;">
+      <label class="rsvp-label" style="font-family: 'Playfair Display', serif; color: #1a1a1a; font-size: 1.1rem; margin-bottom: 8px; display: block;">Number of Guests</label>
+      <div style="position: relative;">
+          <select name="guest_count" class="rsvp-input" style="width: 100%; border-radius: 8px; border: 1px solid #e6e0d0; padding: 15px; font-family: 'Playfair Display', serif; font-size: 1rem; background: #ffff; appearance: none;">
+            <option value="1">1 Guest</option>
+            <option value="2">2 Guests</option>
+          </select>
+          <div style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 35px;">
+      <label class="rsvp-label" style="font-family: 'Playfair Display', serif; color: #1a1a1a; font-size: 1.1rem; margin-bottom: 8px; display: block;">Wishes for the Couple</label>
+      <textarea name="message" placeholder="Write your beautiful message here..." class="rsvp-input" rows="5" 
+                style="width: 100%; border-radius: 8px; border: 1px solid #e6e0d0; padding: 15px; font-family: 'Playfair Display', serif; font-size: 1rem; background: #fcfbf9; resize: none;"></textarea>
+    </div>
+
+    <button type="submit" class="btn-gold" style="display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 500; width: 100%; padding: 16px; border-radius: 50px; background-color: #d4af37; color: white; border: none; font-size: 1.1rem; font-family: 'Playfair Display', serif; cursor: pointer; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);">
+      Confirm Attendance 
+    </button>
+  </form>
+</section>
+<!-- CSS override for placeholder color to match design -->
+<style>
+    ::placeholder { color: #ccc; opacity: 1; }
+    :-ms-input-placeholder { color: #ccc; }
+    ::-ms-input-placeholder { color: #ccc; }
+</style>
+
+<!-- Gift Section -->
+{{$giftBank := ""}}
+{{$giftAcc := ""}}
+{{$giftHolder := ""}}
+
+{{if .ContentData}}
+    {{$giftBank = index .ContentData "GiftBankName"}}
+    {{$giftAcc = index .ContentData "GiftAccountNumber"}}
+    {{$giftHolder = index .ContentData "GiftAccountHolder"}}
+{{end}}
+
+{{if $giftBank}}
+<section class="section">
+  <div class="center" style="margin-bottom: 30px;">
+    <div style="font-size: 40px; margin-bottom: 10px;">≡ƒÄü</div>
+    <h2 style="font-size: 36px; margin-bottom: 5px;">Wedding Gift</h2>
+    <p style="color:#999; font-family:'Playfair Display', serif; font-size: 16px; margin: 0 auto; max-width: 600px; line-height: 1.5;">
+        Your prayers and blessings are the greatest gift to us. However, if you wish to share your love through a gift, we provide the following option:
+    </p>
+  </div>
+
+  <div class="card" style="max-width: 500px; margin: 0 auto; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; position: relative; background: #fff;">
+     <!-- Bank Header -->
+     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+        <div class="bank-badge" style="background-color: #f7fce5; color: #6b7c3f; padding: 5px 15px; font-family: 'Playfair Display', serif; font-size: 14px; letter-spacing: 0.5px;">
+            {{$giftBank}}
+        </div>
+        <div class="bank-logo" style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 30px; color: #ccc; font-weight: bold;">
+            {{$giftBank}}
+        </div>
+     </div>
+
+     <!-- Account Number -->
+     <div style="font-family: 'Playfair Display', serif; font-size: 42px; color: #2f2f2f; margin-bottom: 5px; letter-spacing: -1px;">
+        {{$giftAcc}}
+     </div>
+
+     <!-- Account Name -->
+     <div style="font-size: 14px; color: #999; margin-bottom: 30px; font-family: 'Inter', sans-serif;">
+        a.n {{$giftHolder}}
+     </div>
+
+     <!-- Copy Button -->
+     <button onclick="copyToClipboard('{{$giftAcc}}')" style="width: 100%; padding: 15px; background: #f9f9f9; border: none; border-radius: 10px; font-family: 'Playfair Display', serif; font-size: 14px; color: #333; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        COPY ACCOUNT NUMBER
+     </button>
+  </div>
+</section>
+
+<script>
+function copyToClipboard(text) {
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Nomor rekening berhasil disalin!");
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+
+// Convert Full Bank Name to Abbreviation for Logo
+(function() {
+    const map = {
+        "Bank Central Asia": "BCA",
+        "Bank Mandiri": "MANDIRI",
+        "Bank Rakyat Indonesia": "BRI",
+        "Bank Negara Indonesia": "BNI",
+        "CIMB Niaga": "CIMB",
+        "Bank Syariah Indonesia": "BSI",
+        "Permata Bank": "PERMATA",
+        "Bank Danamon": "DANAMON",
+        "Jenius BTPN": "JENIUS",
+        "Bank Jago": "JAGO",
+        "SeaBank": "SEABANK",
+        "Bank Tabungan Negara": "BTN",
+        "OCBC NISP": "OCBC",
+        "Panin Bank": "PANIN"
+    };
+
+    const badges = document.querySelectorAll('.bank-badge');
+    badges.forEach(badge => {
+        const fullName = badge.innerText.trim();
+        const abbr = map[fullName];
+        if (abbr) {
+            // Find sibling logo
+            const logo = badge.parentElement.querySelector('.bank-logo');
+            if (logo) logo.innerText = abbr;
+        }
+    });
+})();
+</script>
+{{end}}
+
+<!-- Footer Section -->
+<section class="section footer" style="background-color: #333; color: #d4af37; padding: 60px 20px; text-align: center;">
+    <p style="font-family: 'Playfair Display', serif; font-size: 16px; margin-bottom: 20px; color: #d4af37; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        "Thank you for your love, prayers, and support. We are honored to share this special day with you."
+    </p>
+    <div style="font-family: 'Great Vibes', cursive; font-size: 48px; color: #d4af37;">
+        {{.BrideName}} & {{.GroomName}}
+    </div>
+    <!-- Spacing -->
+    <div style="height: 20px;"></div>
+</section>
+
+<!-- Action Icons Section -->
+<style>
+.icon-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px 20px 50px;
+    background-color: #f3efe8; /* Light beige background */
+}
+.icon-btn {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #7c8a45; /* Muted Green outline */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7c8a45;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    padding: 0;
+}
+.icon-btn:hover {
+    background-color: #7c8a45;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.icon-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.5;
+}
+.icon-btn.playing {
+    animation: pulse-border 2s infinite;
+}
+@keyframes pulse-border {
+    0% { box-shadow: 0 0 0 0 rgba(124, 138, 69, 0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(124, 138, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(124, 138, 69, 0); }
+}
+</style>
+
+<section class="icon-actions">
+    <!-- Map Marker -->
+    <a href="{{.ReceptionMapsURL}}" target="_blank" class="icon-btn" title="Location">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+    </a>
+    
+    <!-- Music Toggle -->
+    <button id="music-btn" class="icon-btn" onclick="toggleMusic()" title="Play/Pause Music">
+        <svg id="music-icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <svg id="music-icon-pause" style="display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+    </button>
+    
+    <!-- Share Button -->
+    <button class="icon-btn" onclick="shareInvitation()" title="Share Invitation">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+    </button>
+</section>
+
+<!-- Audio Element -->
+<audio id="bg-music" loop>
+    <source src="{{.MusicURL}}" type="audio/mp3">
+</audio>
+
+<script>
+// Music Control
+let isPlaying = false;
+const audio = document.getElementById('bg-music');
+const musicBtn = document.getElementById('music-btn');
+const iconPlay = document.getElementById('music-icon-play');
+const iconPause = document.getElementById('music-icon-pause');
+
+function updateMusicIcon(playing) {
+    if(playing) {
+        iconPlay.style.display = 'none';
+        iconPause.style.display = 'block';
+        musicBtn.classList.add('playing');
+    } else {
+        iconPlay.style.display = 'block';
+        iconPause.style.display = 'none';
+        musicBtn.classList.remove('playing');
+    }
+}
+
+function toggleMusic() {
+    if(!audio) return;
+    
+    if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+    } else {
+        audio.play().catch(e => console.log("Playback interaction required"));
+        isPlaying = true;
+    }
+    updateMusicIcon(isPlaying);
+}
+
+// Aggressive Auto-Play Logic
+function attemptPlay() {
+    if(isPlaying || !audio) return;
+    
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+            // Autoplay started!
+            console.log("Audio playing");
+            isPlaying = true;
+            updateMusicIcon(true);
+            // Remove listeners once playing
+            document.removeEventListener('click', attemptPlay);
+            document.removeEventListener('touchstart', attemptPlay);
+            document.removeEventListener('scroll', attemptPlay);
+        }).catch(error => {
+            console.log("Autoplay blocked, waiting for interaction");
+        });
+    }
+}
+
+// Try immediately on load
+window.addEventListener('load', attemptPlay);
+// Try on any interaction (click, touch, scroll) as backup
+document.addEventListener('DOMContentLoaded', attemptPlay);
+document.addEventListener('click', attemptPlay);
+document.addEventListener('touchstart', attemptPlay);
+document.addEventListener('scroll', attemptPlay);
+
+// Share Function
+function shareInvitation() {
+    const shareData = {
+        title: 'The Wedding of {{.BrideName}} & {{.GroomName}}',
+        text: 'You are invited to our wedding!',
+        url: window.location.href
+    };
+
+    if (navigator.share) {
+        navigator.share(shareData).catch(err => console.log('Error sharing:', err));
+    } else {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            alert('Link undangan berhasil disalin!');
+        }).catch(err => {
+            prompt("Copy link ini manual:", window.location.href);
+        });
+    }
+}
+</script>
+
+<script>
+// Use ISO date from backend
+(function() {
+  const dateStr = "{{.WeddingDateISO}}";
+  // Fallback if empty to a future date for demo purposes
+  let targetDateStr = (dateStr && dateStr.length > 4) ? dateStr : "2026-12-12"; 
+  // If it doesn't contain 'T' (date only), append default time
+  if (targetDateStr.indexOf("T") === -1) {
+    targetDateStr += "T09:00:00";
+  }
+  const targetDate = new Date(targetDateStr).getTime();
+
+  const timer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if(distance < 0) {
+       clearInterval(timer);
+       const countdownEl = document.querySelector(".countdown");
+       if(countdownEl) {
+          countdownEl.innerHTML = "<div style='width:auto; padding:15px 30px;'><span style='font-size:20px;'>Happy Wedding Day!</span><small>Today</small></div>";
+       }
+       return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    const dEl = document.getElementById("days");
+    if(dEl) dEl.innerText = days;
+    const hEl = document.getElementById("hours");
+    if(hEl) hEl.innerText = hours;
+    const mEl = document.getElementById("minutes");
+    if(mEl) mEl.innerText = minutes;
+    const sEl = document.getElementById("seconds");
+    if(sEl) sEl.innerText = seconds;
+  }, 1000);
+})();
+</script>
+
+</body>
+</html>
